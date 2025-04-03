@@ -22,4 +22,4 @@ docker compose build
 docker compose up
 ```
 
-4. Go to `http://localhost:5000`.
+4. Go to http://localhost:5000.
