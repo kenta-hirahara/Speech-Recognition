@@ -1,10 +1,10 @@
 # Speech Recognition Web App
 
-Simple web app where you can talk to and receive response.
+Simple web app where you can talk to then receive immediate text response.
 
 # How to use it
 
-1. After cloning, add the following line to `.env` file.
+1. After cloning, add the following line to the existing `.env` file.
 
 ```
 OPENAI_API_KEY="<your-openai-api-key>"
