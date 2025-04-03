@@ -2,7 +2,6 @@ openai == 1.55.3
 six
 httpx >= 0.27.2
 langchain[openai]
-openai
 faiss-cpu
 tiktoken
 langchain-community
