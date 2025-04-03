@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Recognition Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        slowpulse: "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+                    },
+                },
+            },
+        };
+    </script>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body class="min-h-screen py-12 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300">
+    <div class="container mx-auto px-4 max-w-md">
+        <div class="rounded-2xl shadow-2xl p-8 relative overflow-hidden bg-white/80 backdrop-blur-lg border border-white/30">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 slow-pulse"></div>
+            
+            <div class="text-center mb-10">
+                <div class="inline-block p-3 rounded-full bg-indigo-100 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8 text-indigo-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7m0 0h3m-3 0H9m3-7a4 4 0 004-4V5a4 4 0 00-8 0v5a4 4 0 004 4z" />
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-800">音声アシスタント</h1>
+                <p class="text-gray-500 mt-2">短く話しかけてください</p>
+            </div>
+            
+            <div class="flex justify-center mb-12">
+                <button id="start-btn" class="relative slow-pulse bg-gradient-to-r from-indigo-600 to-purple-600 hover:scale-105 text-white font-medium py-4 px-8 rounded-xl transition duration-300 flex items-center shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mr-3">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z" />
+                    </svg>
+                    <span>Start Recording</span>
+                </button>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="rounded-xl border border-gray-200 overflow-hidden bg-white">
+                    <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center">
+                        <div class="w-3 h-3 bg-indigo-400 rounded-full mr-2"></div>
+                        <h2 class="text-sm font-semibold text-gray-600">認識テキスト</h2>
+                    </div>
+                    <div class="p-5">
+                        <p id="result" class="text-gray-700 min-h-[40px]">音声入力を待っています...</p>
+                    </div>
+                </div>
+                
+                <div class="rounded-xl border border-indigo-200 overflow-hidden bg-white">
+                    <div class="bg-indigo-50 px-4 py-3 border-b border-indigo-200 flex items-center">
+                        <div class="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
+                        <h2 class="text-sm font-semibold text-indigo-700">AI応答</h2>
+                    </div>
+                    <div class="p-5">
+                        <p id="response" class="text-gray-700 min-h-[40px]">応答を生成します...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='app.js')}}"> </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+@keyframes slowpulse {
+    0%, 100% {
+                opacity: 1;
+            }
+    50% {
+                opacity: 0.5;
+            }
+}
+    .slow-pulse {
+            animation: slowpulse 10s ease-in-out infinite;
+        }
