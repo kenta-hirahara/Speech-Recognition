@@ -1,5 +1,4 @@
 from flask import Blueprint, request, render_template, jsonify
-import os
 from openai import OpenAI
 
 main = Blueprint('main', __name__)
