@@ -12,7 +12,7 @@ def index():
 def process_text():
     # parse JSON data
     data = request.get_json()
-    if not data or 'text' not in data:  # 'test' matches the key in frontend fetch
+    if not data or 'text' not in data:  # 'text' matches the key in frontend fetch
         return jsonify({'error': 'Invalid input'}), 400
     
     result_text = data['text']
