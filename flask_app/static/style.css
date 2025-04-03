@@ -8,5 +8,5 @@
             }
 }
     .slow-pulse {
-            animation: slowpulse 10s ease-in-out infinite;
+            animation: slowpulse 15s ease-in-out infinite;
         }
