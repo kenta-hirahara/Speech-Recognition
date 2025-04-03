@@ -9,3 +9,15 @@ Simple web app where you can talk to and receive response.
 ```
 OPENAI_API_KEY="<your-openai-api-key>"
 ```
+
+2. Build docker image by running the following command:
+
+```
+docker compose build
+```
+
+3. Boot the container by doing:
+
+```
+docker compose up
+```
