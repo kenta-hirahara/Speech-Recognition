@@ -27,7 +27,7 @@ if (!SpeechRecognition) {
             resultText += event.results[i][0].transcript;
         }
         resultText = resultText.replace(/ /g, "");
-        resultP.textContent = `${resultText}`; // updates the html element to diplay the acquired text
+        resultP.textContent = resultText; // updates the html element to diplay the acquired text
 
         //send data to flask server
         //fetch() is a javascript func to send data to API or server.
@@ -39,7 +39,7 @@ if (!SpeechRecognition) {
         .then(response => response.json())  // JSONレスポンスをパース
         .then(data => {
             if (data.answer) {
-                responseP.textContent = `${data.answer}`;
+                responseP.innerHTML = marked.parse(data.answer);
             } else {
                 responseP.textContent = "Error!!!";
             }
@@ -51,11 +51,3 @@ if (!SpeechRecognition) {
     }
 }
 
-async function fetchResponse() {
-    const response = await fetch('YOUR_API_ENDPOINT');
-    const data = await response.json();
-    const htmlContent = marked(data.response);
-    document.getElementById('response').innerHTML = htmlContent;
-}
-
-window.onload = fetchResponse;

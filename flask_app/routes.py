@@ -1,4 +1,5 @@
 from flask import Blueprint, request, render_template, jsonify
+from flask_app.services.openai_service import generate_response
 
 main = Blueprint('main', __name__)
 
@@ -11,30 +12,14 @@ def process_text():
     # parse JSON data
     data = request.get_json()
     if not data or 'text' not in data:  # 'text' matches the key in frontend fetch
-        return jsonify({'error': 'Invalid input'}), 400
+        return jsonify({'error': 'テキストが入力されていません'}), 400
+    if not data['text']:
+        return jsonify({'error': 'テキストが空です'}), 400
     
-    result_text = data['text']
-    openai_ans = openai_inference(result_text)
-    print(openai_ans)
-    return jsonify({'answer': openai_ans})
-
-def openai_inference(input_text):
-    import os
-    from openai import OpenAI
-    client = OpenAI( api_key=os.environ.get("OPENAI_API_KEY"))
-    prompt = f"""
-    次の質問に簡潔に回答してください。
-    質問: {input_text}
-    """
-    chat_completion = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt,
-            }
-        ],
-    )
-
-    return chat_completion.choices[0].message.content
-
+    try:
+        result_text = data['text']
+        openai_ans = generate_response(result_text)
+        print(openai_ans)
+        return jsonify({'answer': openai_ans})
+    except Exception as e:
+        return jsonify({'error': f'処理中にエラーが発生しました: {str(e)}'}), 500
