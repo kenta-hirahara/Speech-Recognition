@@ -38,9 +38,8 @@ if (!SpeechRecognition) {
         recognition.start();
         
         // ボタンのスタイルを変更
-        startBtn.classList.remove('from-indigo-600', 'to-purple-600');
-        startBtn.classList.add('animate-recording', 'bg-red-600');
-        startBtn.classList.remove('bg-gradient-to-r'); // グラデーションを削除
+        startBtn.classList.remove('normal-button');
+        startBtn.classList.add('recording-button', 'animate-recording');
         
         // テキストを更新
         buttonText.textContent = "Recording...";
@@ -57,8 +56,8 @@ if (!SpeechRecognition) {
         isRecording = false;
         
         // ボタンのスタイルを元に戻す
-        startBtn.classList.add('from-indigo-600', 'to-purple-600', 'bg-gradient-to-r');
-        startBtn.classList.remove('animate-recording', 'bg-red-600');
+        startBtn.classList.remove('recording-button', 'animate-recording');
+        startBtn.classList.add('normal-button');
         
         // テキストを更新
         buttonText.textContent = "Start Recording";
