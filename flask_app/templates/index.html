@@ -15,7 +15,19 @@
                     },
                     animation: {
                         slowpulse: "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+                        recording: "recording 1.5s ease-in-out infinite",
+                        wave: "wave 1.5s ease-in-out infinite",
                     },
+                    keyframes: {
+                        recording: {
+                            '0%, 100%': { transform: 'scale(1)', backgroundColor: 'rgb(220, 38, 38)' },
+                            '50%': { transform: 'scale(1.05)', backgroundColor: 'rgb(239, 68, 68)' },
+                        },
+                        wave: {
+                            '0%': { transform: 'scale(1)', opacity: '1' },
+                            '100%': { transform: 'scale(1.5)', opacity: '0' },
+                        }
+                    }
                 },
             },
         };
@@ -38,12 +50,18 @@
             </div>
             
             <div class="flex justify-center mb-12">
-                <button id="start-btn" class="relative slow-pulse bg-gradient-to-r from-indigo-600 to-purple-600 hover:scale-105 text-white font-medium py-4 px-8 rounded-xl transition duration-300 flex items-center shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mr-3">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z" />
-                    </svg>
-                    <span>Start Recording</span>
-                </button>
+                <div class="relative">
+                    <!-- 録音中の波紋アニメーション -->
+                    <span id="recording-wave-1" class="absolute inset-0 bg-red-500 rounded-xl opacity-0"></span>
+                    <span id="recording-wave-2" class="absolute inset-0 bg-red-500 rounded-xl opacity-0" style="animation-delay: 0.5s"></span>
+                    
+                    <button id="start-btn" class="relative bg-gradient-to-r from-indigo-600 to-purple-600 hover:scale-105 text-white font-medium py-4 px-8 rounded-xl transition duration-300 flex items-center shadow-lg">
+                        <svg id="mic-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mr-3">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z" />
+                        </svg>
+                        <span id="button-text">Start Recording</span>
+                    </button>
+                </div>
             </div>
             
             <div class="space-y-6">
