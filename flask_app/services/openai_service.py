@@ -4,7 +4,7 @@ import os
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
-def generate_response(input_text, model="gpt-4o-mini"):
+def generate_answer(input_text, model="gpt-4o-mini"):
     """OpenAI APIを使用して回答を生成する"""
 
     prompt = f"""
@@ -26,4 +26,4 @@ def generate_response(input_text, model="gpt-4o-mini"):
     except Exception as e:
         # document error to the log and return apology
         print(f"OpenAI API error: {str(e)}")
-        return "申し訳ありませんが、現在回答を生成できません。"
+        raise

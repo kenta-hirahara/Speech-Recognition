@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, jsonify
-from flask_app.services.openai_service import generate_response
+from flask_app.services.openai_service import generate_answer
+import openai
 
 main = Blueprint('main', __name__)
 
@@ -18,8 +19,17 @@ def process_text():
     
     try:
         result_text = data['text']
-        openai_ans = generate_response(result_text)
+        openai_ans = generate_answer(result_text)
         print(openai_ans)
         return jsonify({'answer': openai_ans})
+    except openai.APIError as e:
+        #Handle API error here, e.g. retry or log
+        return jsonify({'error': f"OpenAI API returned an API Error: {str(e)}"})
+    except openai.APIConnectionError as e:
+        #Handle connection error here
+        return jsonify({'error': f"Failed to connect to OpenAI API: {str(e)}"})
+    except openai.RateLimitError as e:
+        #Handle rate limit error
+        return jsonify({'error': f"OpenAI API request exceeded rate limit: {str(e)}"})
     except Exception as e:
         return jsonify({'error': f'処理中にエラーが発生しました: {str(e)}'}), 500
