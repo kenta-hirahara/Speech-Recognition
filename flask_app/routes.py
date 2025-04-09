@@ -32,4 +32,4 @@ def process_text():
         #Handle rate limit error
         return jsonify({'error': f"OpenAI API request exceeded rate limit: {str(e)}"})
     except Exception as e:
-        return jsonify({'error': f'処理中にエラーが発生しました: {str(e)}'}), 500
+        return jsonify({'error': f'Error occurred during processing: {str(e)}'}), 500
