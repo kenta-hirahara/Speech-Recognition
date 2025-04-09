@@ -24,12 +24,9 @@ def process_text():
         return jsonify({'answer': openai_ans})
     except openai.APIError as e:
         #Handle API error here, e.g. retry or log
-        return jsonify({'error': f"OpenAI API returned an API Error: {str(e)}"})
-    except openai.APIConnectionError as e:
-        #Handle connection error here
-        return jsonify({'error': f"Failed to connect to OpenAI API: {str(e)}"})
+        return jsonify({'error': f"OpenAI API returned an API Error: {str(e)}"}), 401
     except openai.RateLimitError as e:
         #Handle rate limit error
-        return jsonify({'error': f"OpenAI API request exceeded rate limit: {str(e)}"})
+        return jsonify({'error': f"OpenAI API request exceeded rate limit: {str(e)}"}), 429
     except Exception as e:
         return jsonify({'error': f'Error occurred during processing: {str(e)}'}), 500
