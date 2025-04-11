@@ -20,9 +20,9 @@ def process_text():
     
     try:
         result_text = data['text']
-        openai_ans = call_fastapi_llm(result_text)
-        print(openai_ans)
-        return jsonify({'answer': openai_ans})
+        ai_ans = call_fastapi_llm(result_text)
+        print(ai_ans)
+        return jsonify({'answer': ai_ans})
     except openai.APIError as e:
         #Handle API error here, e.g. retry or log
         return jsonify({'error': f"OpenAI API returned an API Error: {str(e)}"}), 401
