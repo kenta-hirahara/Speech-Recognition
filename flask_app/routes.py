@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, jsonify
 from flask_app.services.openai_service import generate_answer
+from flask_app.services.llm_service import call_fastapi_llm
 import openai
 
 main = Blueprint('main', __name__)
@@ -19,7 +20,7 @@ def process_text():
     
     try:
         result_text = data['text']
-        openai_ans = generate_answer(result_text)
+        openai_ans = call_fastapi_llm(result_text)
         print(openai_ans)
         return jsonify({'answer': openai_ans})
     except openai.APIError as e:
