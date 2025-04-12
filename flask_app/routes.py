@@ -1,7 +1,5 @@
 from flask import Blueprint, request, render_template, jsonify
-from flask_app.services.openai_service import generate_answer
 from flask_app.services.llm_service import call_fastapi_llm
-import openai
 
 main = Blueprint('main', __name__)
 
@@ -20,14 +18,13 @@ def process_text():
     
     try:
         result_text = data['text']
-        ai_ans = call_fastapi_llm(result_text)
-        print(ai_ans)
-        return jsonify({'answer': ai_ans})
-    except openai.APIError as e:
-        #Handle API error here, e.g. retry or log
-        return jsonify({'error': f"OpenAI API returned an API Error: {str(e)}"}), 401
-    except openai.RateLimitError as e:
-        #Handle rate limit error
-        return jsonify({'error': f"OpenAI API request exceeded rate limit: {str(e)}"}), 429
+        success, ai_ans = call_fastapi_llm(result_text)
+        if success:
+            print(f'Success: {ai_ans}')
+            return jsonify({'ai_answer': ai_ans})
+        else:
+            print(f'Error: {ai_ans}')
+            return jsonify({'ai_answer': ai_ans}), 500
+
     except Exception as e:
-        return jsonify({'error': f'Error occurred during processing: {str(e)}'}), 500
+        return jsonify({'error': f'予期せぬエラーが発生しました: {str(e)}'}), 500

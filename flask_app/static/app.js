@@ -1,9 +1,10 @@
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 if (!SpeechRecognition) {
-    alert("this browser cannot recognize audio.");
+    alert("このブラウザは音声認識に対応していません");
 } else {
     //constructor to initiate speech recognition obj
     const recognition = new SpeechRecognition();
+    
     //config of the obj
     recognition.continuous = false;
     recognition.interimResults = false;
@@ -18,59 +19,66 @@ if (!SpeechRecognition) {
     const recordingWave1 = document.getElementById('recording-wave-1');
     const recordingWave2 = document.getElementById('recording-wave-2');
     
+    // Flags to control UI state
     let isRecording = false;
-    
-    // マイクアイコンSVGを定義
+    let isProcessing = false; // flag of server process
+
+    // Define mic icon SVG
     const micSvg = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7m0 0h3m-3 0H9m3-7a4 4 0 004-4V5a4 4 0 00-8 0v5a4 4 0 004 4z" />`;
     
-    // 再生アイコンSVGを定義
+    // Define play icon SVG
     const playSvg = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z" />`;
     
-    //start button click event
+    // Event listner for the start button
     startBtn.addEventListener('click', () => {
-        if (!isRecording) {
+        if (!isRecording && !isProcessing) {
             startRecording();
+        } else if (isRecording) {
+            // Manually stop recording if already recording
+            recognition.stop();
         }
     });
     
+    // Start recording and updating UI
     function startRecording() {
         isRecording = true;
         recognition.start();
         
-        // ボタンのスタイルを変更
+        // Update button styles and text
         startBtn.classList.remove('normal-button');
         startBtn.classList.add('recording-button', 'animate-recording');
-        
-        // テキストを更新
         buttonText.textContent = "Recording...";
-        
-        // アイコンをマイクに変更
         micIcon.innerHTML = micSvg;
         
-        // 波紋アニメーションを追加
+        // Start wave animation
         recordingWave1.classList.add('animate-wave');
         recordingWave2.classList.add('animate-wave');
     }
     
+    // Stop recording and reset UI
     function stopRecording() {
         isRecording = false;
         
-        // ボタンのスタイルを元に戻す
+        // Reset button styles and text
         startBtn.classList.remove('recording-button', 'animate-recording');
         startBtn.classList.add('normal-button');
-        
-        // テキストを更新
         buttonText.textContent = "Start Recording";
-        
-        // アイコンを再生に戻す
         micIcon.innerHTML = playSvg;
         
-        // 波紋アニメーションを停止
+        // Stop wave animation
         recordingWave1.classList.remove('animate-wave');
         recordingWave2.classList.remove('animate-wave');
     }
-    
-    //speech recog results handling
+       // Set UI state to processing while waiting for server response
+       function setProcessingState(isActive) {
+        isProcessing = isActive;
+        startBtn.disabled = isActive;
+        if (isActive) {
+            responseP.innerHTML = '<div class="loading">処理中...</div>';
+        }
+    } 
+
+    // Handle recognition result
     recognition.onresult = (event) => {
         let resultText = '';
         for (let i = 0; i < event.results.length; i++) {
@@ -78,11 +86,12 @@ if (!SpeechRecognition) {
         }
         resultText = resultText.replace(/ /g, "");
         resultP.textContent = resultText;
-        
-        // 録音終了後にボタンのスタイルを戻す
+
+        // Reset UI and show processing state
         stopRecording();
-        
-        // send data to flask server
+        setProcessingState(true);
+
+        // Send recognized text to Flask backend
         fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -90,27 +99,29 @@ if (!SpeechRecognition) {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.answer) {
-                responseP.innerHTML = marked.parse(data.answer);
+            if (data.ai_answer) {
+                responseP.innerHTML = marked.parse(data.ai_answer);
             } else {
-                responseP.textContent = "Error!!!";
+                responseP.textContent = "バックエンド/Flaskからの応答がありません";
             }
         })
         .catch(error => {
             console.error("Error:", error);
-            responseP.textContent = "Error occured";
+            responseP.textContent = "通信エラーが発生しました";
+        })
+        .finally(() => {
+            setProcessingState(false);
         });
     }
     
-    // 音声認識が終了したときの処理
+    // Reset UI if recognition ends without results
     recognition.onend = () => {
-        // 録音状態が続いている場合のみスタイルを戻す（結果を取得できなかった場合）
         if (isRecording) {
             stopRecording();
         }
     };
     
-    // エラー発生時の処理
+    // Handle recognition errors
     recognition.onerror = (event) => {
         console.error("Speech Recognition Error:", event.error);
         stopRecording();
