@@ -18,11 +18,15 @@ This app combines local voice processing with cloud-based language model capabil
 ```mermaid
 sequenceDiagram
     actor User
+    box cyan Local
     participant Flask as Flask App
+    end
     participant WebSpeech as WebSpeech API
     participant Ngrok as Ngrok
+    box lightgreen Colab
     participant FastAPI as FastAPI on Colab
     participant LLM as LLM
+    end
 
     Note over User,WebSpeech: Speech Input Phase
     User->>Flask: Speak into the microphone
