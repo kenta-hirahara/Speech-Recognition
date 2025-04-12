@@ -44,7 +44,7 @@ sequenceDiagram
     Flask-->>User: Show final response
 ```
 
-# How to use it
+# How to use
 
 1. After cloning, add the following line to the existing `.env` file.
 
