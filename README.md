@@ -49,7 +49,7 @@ sequenceDiagram
 1. After cloning, add the following line to the existing `.env` file.
 
 ```
-LLM_URL="<ngrok_url>"
+LLM_URL="<ngrok_url_ask_Kenta>"
 ```
 
 2. Build docker image by running the following command:
