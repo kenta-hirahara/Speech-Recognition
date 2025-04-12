@@ -10,7 +10,7 @@ This app combines local voice processing with cloud-based language model capabil
 
 2. Colab Server with FastAPI
  - Exposed to the internet via Ngrok tunneling
- - Receives text input from the local Falsk application
+ - Receives text input from the local Flask application
  - Processes the input through a large language model (LLM)
  - Returns the response to the local application
 
