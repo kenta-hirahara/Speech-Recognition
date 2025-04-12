@@ -49,7 +49,7 @@ sequenceDiagram
 1. After cloning, add the following line to the existing `.env` file.
 
 ```
-OPENAI_API_KEY="<your-openai-api-key>"
+LLM_URL="<ngrok_url>"
 ```
 
 2. Build docker image by running the following command:
