@@ -24,7 +24,7 @@ sequenceDiagram
     participant WebSpeech as WebSpeech API
     participant Ngrok as Ngrok
     box lightgreen Colab
-    participant FastAPI as FastAPI on Colab
+    participant FastAPI as FastAPI Endpoint
     participant LLM as LLM
     end
 
