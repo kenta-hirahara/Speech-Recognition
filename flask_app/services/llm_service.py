@@ -4,7 +4,7 @@ import os
 def call_fastapi_llm(text):
     base_url = os.environ.get("LLM_URL")
     if not base_url:
-        raise EnvironmentError("環境変数 'LLM_URL' が設定されていません")
+        raise EnvironmentError("環境変数 \'LLM_URL\' が設定されていません")
     fastapi_endpoint_url = base_url + "/predict"
     try:
         response = requests.post(fastapi_endpoint_url , json={"message": text})

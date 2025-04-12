@@ -25,7 +25,9 @@ if (!SpeechRecognition) {
 
     // Define mic icon SVG
     const micSvg = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7m0 0h3m-3 0H9m3-7a4 4 0 004-4V5a4 4 0 00-8 0v5a4 4 0 004 4z" />`;
-    
+    // Define stop icon SVG (square icon for recording state)
+    const stopSvg = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />`;
+    //
     // Define play icon SVG
     const playSvg = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z" />`;
     
@@ -47,8 +49,8 @@ if (!SpeechRecognition) {
         // Update button styles and text
         startBtn.classList.remove('normal-button');
         startBtn.classList.add('recording-button', 'animate-recording');
-        buttonText.textContent = "Recording...";
-        micIcon.innerHTML = micSvg;
+        buttonText.textContent = "録音中...";
+        micIcon.innerHTML = stopSvg;
         
         // Start wave animation
         recordingWave1.classList.add('animate-wave');
@@ -62,7 +64,7 @@ if (!SpeechRecognition) {
         // Reset button styles and text
         startBtn.classList.remove('recording-button', 'animate-recording');
         startBtn.classList.add('normal-button');
-        buttonText.textContent = "Start Recording";
+        buttonText.textContent = "録音を開始";
         micIcon.innerHTML = playSvg;
         
         // Stop wave animation
