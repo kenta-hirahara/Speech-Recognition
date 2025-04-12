@@ -1,4 +1,4 @@
-# Voice assistant web app 
+# Voice Assistant Web Application 
 This app combines local voice processing with cloud-based language model capabilities, creating a seamless voice-to-text-to-response system.
 
 ## Architecture overview
