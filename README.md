@@ -1,7 +1,20 @@
-# Speech Recognition Web App
+# Voice assistant web app 
+This app combines local voice processing with cloud-based language model capabilities, creating a seamless voice-to-text-to-response system.
 
-Simple web app where you can talk to then receive immediate text response.
+## Architecture overview
+1. Local Flask Application
+ - Captures user voice input through the browser including chrome, safari and opera
+ - Leverages WebSpeechAPI for real-time speech-to-text conversion
+ - Sends text to Colab server to undergo LLM inferences
+ - Renders final response back to the user
 
+2. Colab Server with FastAPI
+ - Exposed to the internet via Ngrok tunneling
+ - Receives text input from the local Falsk application
+ - Processes the input through a large language model (LLM)
+ - Returns the response to the local application
+
+## Data Flow
 ```mermaid
 sequenceDiagram
     actor User
