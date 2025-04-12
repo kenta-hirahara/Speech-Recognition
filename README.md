@@ -29,7 +29,7 @@ sequenceDiagram
     Flask->>WebSpeech: Send speech recognition request
     WebSpeech-->>Flask: Return transcribed text
     Flask->>Flask: Display input text in HTML
-    Flask->>User: Show input text
+    Flask-->>User: Show input text
 
     Note over Flask,LLM: Backend Processing Phase
     Flask->>Ngrok: POST request with text data
