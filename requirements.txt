@@ -1,7 +1,3 @@
 openai == 1.55.3
-six
-httpx >= 0.27.2
-faiss-cpu
-tiktoken
 flask
 python-dotenv
