@@ -1,5 +1,5 @@
 # Voice Assistant Web Application 
-This app combines local voice processing with cloud-based language model capabilities, creating a seamless voice-to-text-to-response system.
+This app, built with Meta Llama 3, combines local voice processing with cloud-based language model capabilities, creating a seamless voice-to-text-to-response system.
 
 ## Architecture overview
 1. Local Flask Application
