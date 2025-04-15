@@ -51,20 +51,22 @@ sequenceDiagram
 # How to use
 
 1. Run `llm_fastapi_elyza_colab.ipynb` on Google Colaboratory.
+ 
 2. Add the following line to the existing `.env` file.
 ```
 LLM_URL="<ngrok_url>"
 ```
-2. Build docker image by running the following command:
+
+3. Build docker image by running the following command:
 
 ```
 docker compose build
 ```
 
-3. Boot the container by doing:
+4. Boot the container by doing:
 
 ```
 docker compose up
 ```
 
-4. Go to http://localhost:5000.
+5. Go to http://localhost:5000.
