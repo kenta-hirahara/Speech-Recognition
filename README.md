@@ -2,7 +2,9 @@
 This app, built with Meta Llama 3, combines local voice processing with cloud-based language model capabilities, creating a seamless voice-to-text-to-response system.
 
 ## Demo
-![demo](./assets/demo.gif)
+<div align="center">
+  <img src="./assets/demo.gif" width="50%">
+</div>
 
 ## Architecture overview
 1. Local Flask Application
